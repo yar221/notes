@@ -1,0 +1,31 @@
+header{
+    background-color: #D6D6D6;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+
+    .tools{
+        display: flex;
+
+
+        &__item{
+            cursor: pointer;
+            padding: 8px;
+            background-color: #fff;
+            border-radius: 7px;
+
+            &:not(:last-child){
+                margin-right: 15px;
+            }
+
+            & > *{
+                width: 22px;
+                height: 22px;
+            }
+        }
+    }
+}
+
