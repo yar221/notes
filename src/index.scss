@@ -70,3 +70,12 @@ input, textarea{
 textarea{
   resize: none;
 }
+
+#root{
+  height: 100vh;
+}
+
+.App{
+  height: 100%;
+  position: relative;
+}

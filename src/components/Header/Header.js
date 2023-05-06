@@ -1,5 +1,5 @@
 import React from 'react';
-import SeacrhBar from '../SearchBox/SearchBar';
+import SeacrhBox from '../SearchBox/SeacrhBox';
 import './header.scss'
 import { PencilSquare, Plus, Trash } from 'react-bootstrap-icons';
 
@@ -18,7 +18,8 @@ const Header = () => {
                 </div>
             </div>
 
-            <SeacrhBar />
+            {/* компонент який здійснює пошук */}
+            <SeacrhBox />
         </header>
     );
 };
