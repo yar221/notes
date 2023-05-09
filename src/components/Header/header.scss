@@ -4,6 +4,7 @@ header{
     left: 0;
     background-color: #D6D6D6;
     width: 100%;
+    z-index: 100;
 
     display: flex;
     justify-content: space-between;
@@ -20,6 +21,7 @@ header{
             padding: 8px;
             background-color: #fff;
             border-radius: 7px;
+            transition: all .3s;
 
             &:not(:last-child){
                 margin-right: 15px;
@@ -31,5 +33,23 @@ header{
             }
         }
     }
+    .burger{
+        position: absolute;
+        left: 0;
+        width: 30px;
+        height: 30px;
+        top: 48px;
+    }
 }
 
+@media (max-width: 596px) {
+    header{
+        flex-direction: column-reverse;
+        padding: 15px 40px;
+        height: auto;
+    }
+}
+
+@media (max-width: 375px) {
+    
+}

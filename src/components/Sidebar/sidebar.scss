@@ -1,28 +1,30 @@
 .sidebar{
     flex: 0 0 20%;
     overflow-y: scroll;
+    transition: all .3s;
+    background-color: #fafaf8;
+    z-index: 2;
 
     &::-webkit-scrollbar {
-        width: 10px; /* Ширина скроллбара */
+        width: 10px; 
     }
     
     &::-webkit-scrollbar-track {
-        background-color: #f1f1f1; /* Цвет фона */
-        border-radius: 5px; /* Радиус границы */
+        background-color: #f1f1f1; 
+        border-radius: 5px;
     }
     
     &::-webkit-scrollbar-thumb {
-        background-color: #888; /* Цвет скроллбара */
-        border-radius: 5px; /* Радиус границы */
+        background-color: #888; 
+        border-radius: 5px; 
     }
     
     &::-webkit-scrollbar-button {
-        display: none; /* Удаление стрелок */
+        display: none; 
     }
 
-    /* Для Firefox */
-    scrollbar-color: #888 #f1f1f1; /* Цвет скроллбара и фона */
-    scrollbar-width: thin; /* Толщина скроллбара */
+    scrollbar-color: #888 #f1f1f1; 
+    scrollbar-width: thin; 
 
     .list{
         &__undefinedels{
@@ -30,5 +32,21 @@
             padding-top: 15px;
             font-weight: 500;
         }
+    }
+}
+
+@media (max-width: 954px) {
+    .sidebar{
+        flex: 0 0 35%;
+    }
+}
+
+@media (max-width: 596px) {
+    .sidebar{
+        position: absolute;
+        height: calc(100% - 111px);
+        width: 240px;
+        top: 111px;
+        left: -240px;
     }
 }

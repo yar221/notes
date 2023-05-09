@@ -1,6 +1,48 @@
-.contentbar{
+.contentbar {
+  height: 100%;
+  display: flex;
+  background-color: #fafaf8;
+  padding-top: 81px;
+  position: relative;
+
+  &__shadow{
+    position: absolute;
     height: 100%;
-    display: flex;
-    background-color: #FAFAF8;
-    padding-top: 81px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0, 0.2);
+    z-index: 1;
+    transition: all .3s;
+  }
+
+  &__burger {
+     display: none;
+     margin-top: 15px;
+     position: absolute;
+     left: 0px;
+     transition: all .3s;
+     z-index: 2;
+    //  top: 15px;
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .burger-left {
+    left: 250px;
+  }
+}
+
+@media (max-width: 596px) {
+  .contentbar {
+    padding-top: 111px;
+    
+    display: block;
+
+    &__burger {
+         display: block;
+    }
+  }
 }

@@ -1,49 +1,54 @@
-import React, { useState, useEffect, useContext } from 'react';
-import './sidebar.scss';
-import ListItem from '../ListItem/ListItem';
-import Context from '../../context/context';
+import React, { useState, useEffect, useContext } from "react";
+import "./sidebar.scss";
+import ListItem from "../ListItem/ListItem";
+import Context from "../../context/context";
+import { DBServiceI } from "../../DBService";
 
 const Sidebar = () => {
-    const {searchedText} = useContext(Context)
-    
-    //массив для перевірки функціоналу, без підключення до бд
-    const listarr = [
-        {id: 1, title: 'Title1', date: new Date(), text: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.'},
-        {id: 2, title: 'Title2', date: new Date(), text: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.'},
-        {id: 3, title: 'Title3', date: new Date(), text: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.'},
-        {id: 4, title: 'Title4', date: new Date(), text: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.'},
-        {id: 5, title: 'Title5', date: new Date(), text: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.'},
-        {id: 6, title: 'Title6', date: new Date(), text: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.'},
-        {id: 7, title: 'Title7', date: new Date(), text: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.'},
-    ]
 
-    const [list, setList] = useState(listarr)
+  const { searchedText, list, setList, isBurgerDown } = useContext(Context);
+  
+  useEffect(() => {
+    DBServiceI.getAllNotes().then((res) => {
+      setList(res);
+    });
+  }, []);
+  
+  // Если searchedText изменяется, фильтруем массив заметок
+  useEffect(() => {
+    if (searchedText === "") {
+      // Если строка поиска пустая, показываем все заметки
+      DBServiceI.getAllNotes().then((res) => {
+        setList(res);
+      });
+    } else {
+      // Фильтруем заметки по строке поиска
+      const searchResults = list.filter(
+        (obj) =>
+          obj.title.toLowerCase().includes(searchedText.toLowerCase()) ||
+          obj.text.toLowerCase().includes(searchedText.toLowerCase())
+      );
 
-    // якщо searchedText змінюється, то фільтруємо массив по входженню цієї строки в text чи title
-    useEffect(() => {
-        if (searchedText === '') {
-          setList(listarr);
-        } else {
-          const searchResults = listarr.filter(
-            (obj) =>
-              obj.title.toLowerCase().includes(searchedText.toLowerCase()) ||
-              obj.text.toLowerCase().includes(searchedText.toLowerCase())
-          );
-      
-          setList(searchResults);
-        }
-      }, [searchedText])
+      setList(searchResults);
+    }
+  }, [searchedText]);
+  
+  return (
+    <div className="sidebar" style={{left: isBurgerDown && '0'}}>
+      <ul className="list">
+        {[...list].reverse().map((item, key) => (
+          <ListItem key={key} note={item} />
+        ))}
+        {list.length === 0 ? (
+          searchedText !== "" ? (
+            <div className="list__undefinedels">Таких нотаток не існує</div>
+          ) : (
+            <div className="list__undefinedels">Нотаток поки нема</div>
+          )
+        ) : null}
+      </ul>
+    </div>
+  );
+}
 
-    return (
-        <div className='sidebar'>
-            <ul className='list'>
-                {list.map((item, key) => 
-                    <ListItem key={key} note={item}/>
-                )}
-                {list.length === 0 ? searchedText !== '' ? <div className="list__undefinedels">Таких нотаток не існує</div> : <div className="list__undefinedels">Нотаток поки нема</div> : null}
-            </ul>
-        </div>
-    );
-};
-
-export default Sidebar;
+export default Sidebar
